@@ -1,0 +1,1229 @@
+// ============================================
+// DATA SISWA — Dari Excel
+// ============================================
+
+const STUDENT_DATA = {
+  "7": {
+    "A": [
+      {
+        "nama": "AFIKA AMALIA PUTRI",
+        "jk": "P"
+      },
+      {
+        "nama": "AHMAD AMIN RAMADAN ASNOR",
+        "jk": "L"
+      },
+      {
+        "nama": "AHMAD SIRAJUDDIN",
+        "jk": "L"
+      },
+      {
+        "nama": "AHMAD SYAIFULLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "AL SABILA",
+        "jk": "P"
+      },
+      {
+        "nama": "FIRMANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "HARIL",
+        "jk": "L"
+      },
+      {
+        "nama": "KHAIRUNNISA NASUTION",
+        "jk": "P"
+      },
+      {
+        "nama": "M. TAUFIK",
+        "jk": "L"
+      },
+      {
+        "nama": "MARDALINA SHOFIANI",
+        "jk": "P"
+      },
+      {
+        "nama": "MAULIDAH FAIZATUL SALWA",
+        "jk": "P"
+      },
+      {
+        "nama": "MUHAMMAD ALI BAGUS RAMADANI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD FAJRI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD IKHSAN ABDILLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD REKSY",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD SADAM KADAFI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUTIA NABILA SAFITRI",
+        "jk": "P"
+      },
+      {
+        "nama": "NADA NAQIYYAH NADZIFAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NASRIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AIDAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AZIZAH IZATI",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR SALSABILA AL-ZAIRI",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR WAQIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NURUL QALBIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "RAESAH RAHIM",
+        "jk": "P"
+      },
+      {
+        "nama": "SIRAY JUDDIN KELVIN",
+        "jk": "L"
+      },
+      {
+        "nama": "SITI RISSA NOVIANTI",
+        "jk": "P"
+      },
+      {
+        "nama": "WAHDANIA",
+        "jk": "P"
+      }
+    ],
+    "B": [
+      {
+        "nama": "AFIFAH RASYIDAH",
+        "jk": "P"
+      },
+      {
+        "nama": "AIRAWATI",
+        "jk": "P"
+      },
+      {
+        "nama": "AMIRAH NUR HAFIZHAH",
+        "jk": "P"
+      },
+      {
+        "nama": "HAIKAL FAULIZAN AZMI",
+        "jk": "L"
+      },
+      {
+        "nama": "HALIMAHTUS'SADIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "HARFEDTIBELA",
+        "jk": "P"
+      },
+      {
+        "nama": "LAURA SALSABILA",
+        "jk": "P"
+      },
+      {
+        "nama": "M. JUNAIDIL AZHAR",
+        "jk": "L"
+      },
+      {
+        "nama": "M. RAIZ FAUZI",
+        "jk": "L"
+      },
+      {
+        "nama": "M. SALMAN FAIHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MAJIDAH",
+        "jk": "P"
+      },
+      {
+        "nama": "MENTARI PUTRI AZAHRA",
+        "jk": "P"
+      },
+      {
+        "nama": "MUHAMMAD AL-IHSAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD IRFAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD MI'RAJ DICKA FAHREZA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RAMADHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RIFANI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ZAINI ANNABILASI",
+        "jk": "L"
+      },
+      {
+        "nama": "NADA SAFAIRA RISQIN",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR HIKMAH FITRIANI",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR MEILISDA RODESA IRMAYANTI",
+        "jk": "P"
+      },
+      {
+        "nama": "PUTRI ADELIA ZAHIRA",
+        "jk": "P"
+      },
+      {
+        "nama": "RAUDATUL RAHYANI",
+        "jk": "P"
+      },
+      {
+        "nama": "RESTI WINDA AULIA",
+        "jk": "P"
+      },
+      {
+        "nama": "RISKA AULIA",
+        "jk": "P"
+      },
+      {
+        "nama": "SABILATUN NI'AMAH",
+        "jk": "P"
+      },
+      {
+        "nama": "SURIYADI ANJASMARA BOY",
+        "jk": "L"
+      },
+      {
+        "nama": "ZIDAN ZAIRULOH AZHAR",
+        "jk": "L"
+      },
+      {
+        "nama": "INDAH FITRIANI",
+        "jk": "P"
+      }
+    ],
+    "C": [
+      {
+        "nama": "AFRIA HARIYANI",
+        "jk": "P"
+      },
+      {
+        "nama": "AHMAD SYAFIQ HAIKAL",
+        "jk": "L"
+      },
+      {
+        "nama": "APIKA NURUL ISLAMIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "AULIA RACHMAN",
+        "jk": "P"
+      },
+      {
+        "nama": "AYDIL",
+        "jk": "L"
+      },
+      {
+        "nama": "AZKIYATUL MUNAWWARAH",
+        "jk": "P"
+      },
+      {
+        "nama": "BIRAHMAT ARPA",
+        "jk": "L"
+      },
+      {
+        "nama": "DEWI MURINDA PRAHASTUTI",
+        "jk": "P"
+      },
+      {
+        "nama": "DINI APRILIA",
+        "jk": "P"
+      },
+      {
+        "nama": "FITRI AMALIA",
+        "jk": "P"
+      },
+      {
+        "nama": "GADIS ANANDA PUTRI NOOR RISKY",
+        "jk": "P"
+      },
+      {
+        "nama": "ISMAWATI",
+        "jk": "P"
+      },
+      {
+        "nama": "KHOIRUL ANWAR",
+        "jk": "L"
+      },
+      {
+        "nama": "M. ASHAR MAULANA",
+        "jk": "L"
+      },
+      {
+        "nama": "M. BAHRUL ILMI",
+        "jk": "L"
+      },
+      {
+        "nama": "MARDALENA LATIFAH ANWAR",
+        "jk": "P"
+      },
+      {
+        "nama": "MUHAMMAD AQIS",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ARIF MAULANA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD DEFRI ADITYA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD FAJRIANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ILHAM HAROMAIN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD IYANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "NADIA",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AISYAH SALSABILA",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AZIZAH HUMAIRAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR HAMILAH",
+        "jk": "P"
+      },
+      {
+        "nama": "SITI AISYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "TAUFIK RAHMAN",
+        "jk": "L"
+      },
+      {
+        "nama": "YUSNIAR",
+        "jk": "P"
+      }
+    ],
+    "D": [
+      {
+        "nama": "ADELIA PUTRI MIKAYLA",
+        "jk": "P"
+      },
+      {
+        "nama": "AHMAD AZHAR",
+        "jk": "L"
+      },
+      {
+        "nama": "ARSAH NOR HIKMAH",
+        "jk": "P"
+      },
+      {
+        "nama": "AULIA IZZATUNNISA",
+        "jk": "P"
+      },
+      {
+        "nama": "ELIYANA",
+        "jk": "P"
+      },
+      {
+        "nama": "HASMAWATI",
+        "jk": "P"
+      },
+      {
+        "nama": "HUSNA AWALIA ASRIANI",
+        "jk": "P"
+      },
+      {
+        "nama": "KHADIJAH NUR LATIFAH",
+        "jk": "P"
+      },
+      {
+        "nama": "M FAHRI PRATAMA",
+        "jk": "L"
+      },
+      {
+        "nama": "M. FADEL REZKY",
+        "jk": "L"
+      },
+      {
+        "nama": "M. HAMSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MALINO ABDILLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ASSHIDDIQ AKBAR",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD JADID",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD KHAIRUL HADI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD NABIL",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RISKI ALFARIZI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RIZKI RAMADHANI",
+        "jk": "L"
+      },
+      {
+        "nama": "MURSIDAH SALSABILA PUTRI",
+        "jk": "P"
+      },
+      {
+        "nama": "NAY FITRAH JULFIRA",
+        "jk": "P"
+      },
+      {
+        "nama": "NIDA FARHA ZAKIYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NOR MELA SARI",
+        "jk": "P"
+      },
+      {
+        "nama": "RABIATUL PURNAMA SARI",
+        "jk": "P"
+      },
+      {
+        "nama": "RAUDHAH AQILLAH",
+        "jk": "P"
+      },
+      {
+        "nama": "RENDI FADILLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "RIZAL RIPANDI",
+        "jk": "L"
+      },
+      {
+        "nama": "SAIPULLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "SITTI JUNAIDAH",
+        "jk": "P"
+      },
+      {
+        "nama": "SYAWALIA DINA ARIZKY",
+        "jk": "P"
+      }
+    ],
+    "E": [
+      {
+        "nama": "ABDUL RAHMAT",
+        "jk": "L"
+      },
+      {
+        "nama": "AHMAD HAFI BADALI",
+        "jk": "L"
+      },
+      {
+        "nama": "AIRUNISA FITRI",
+        "jk": "P"
+      },
+      {
+        "nama": "ALYA NUR ATHIFAH",
+        "jk": "P"
+      },
+      {
+        "nama": "AULIA LATIF RAMADHANI",
+        "jk": "P"
+      },
+      {
+        "nama": "AZIZAH HAURA",
+        "jk": "P"
+      },
+      {
+        "nama": "DIAZ ANGGA PUTRA",
+        "jk": "L"
+      },
+      {
+        "nama": "FITRADATUS SHALWA",
+        "jk": "P"
+      },
+      {
+        "nama": "JIM HERMILA",
+        "jk": "P"
+      },
+      {
+        "nama": "M SAIPUL HIDAYAT",
+        "jk": "L"
+      },
+      {
+        "nama": "M. RIFQI YADI",
+        "jk": "L"
+      },
+      {
+        "nama": "M. SALMAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD MAHDAN HAMDANI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD NABIL ALTHOF PRATAMA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD SANI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD SAWWAL",
+        "jk": "L"
+      },
+      {
+        "nama": "NAUFAL AR RASYID",
+        "jk": "L"
+      },
+      {
+        "nama": "NOR RAHMA",
+        "jk": "P"
+      },
+      {
+        "nama": "NORMALINDA",
+        "jk": "P"
+      },
+      {
+        "nama": "NOVI MAULIDA RAHMA",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AMALIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AZIZAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NURUL HIKMAH",
+        "jk": "P"
+      },
+      {
+        "nama": "PUTRI QIRANI",
+        "jk": "P"
+      },
+      {
+        "nama": "RISKI DWI LESMANA",
+        "jk": "L"
+      },
+      {
+        "nama": "SAIYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "UJHI RAMADHANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "ZULFA AMINI",
+        "jk": "P"
+      },
+      {
+        "nama": "MAULIA VEBRIANI",
+        "jk": "P"
+      }
+    ]
+  },
+  "8": {
+    "A": [
+      {
+        "nama": "ADITYA NURFAIZ",
+        "jk": "L"
+      },
+      {
+        "nama": "AHMAD RESANDI",
+        "jk": "L"
+      },
+      {
+        "nama": "AHMAD TIRTA",
+        "jk": "L"
+      },
+      {
+        "nama": "AISYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "AKHMAD PAUZAN",
+        "jk": "L"
+      },
+      {
+        "nama": "ASYASIFAH NUR AINAH",
+        "jk": "P"
+      },
+      {
+        "nama": "DIKA LUCKY RAMADHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "GINA LOLITA",
+        "jk": "P"
+      },
+      {
+        "nama": "INSANG",
+        "jk": "L"
+      },
+      {
+        "nama": "INTAN QUR'ANIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "M. AKBAR AFHANDI",
+        "jk": "L"
+      },
+      {
+        "nama": "M. AZZAM MAHFUZH",
+        "jk": "L"
+      },
+      {
+        "nama": "M. NUR ABSAR",
+        "jk": "L"
+      },
+      {
+        "nama": "M. RIDHO EFENDI",
+        "jk": "L"
+      },
+      {
+        "nama": "M. RIDWAN",
+        "jk": "L"
+      },
+      {
+        "nama": "M. RIZKY IBRAHIM",
+        "jk": "L"
+      },
+      {
+        "nama": "M.SYARIP HIDAYATUL RAMADHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RIZKI SYAM FADILLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MULIYATI",
+        "jk": "P"
+      },
+      {
+        "nama": "NABILA MAULIDA PUTRI",
+        "jk": "P"
+      },
+      {
+        "nama": "NIDA MAGFIRAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AFRILIA",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AVRILIA",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AZIZAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR HIDAYAT",
+        "jk": "L"
+      },
+      {
+        "nama": "PUTRI SALBILA",
+        "jk": "P"
+      },
+      {
+        "nama": "RAHMATUL AIDA",
+        "jk": "P"
+      },
+      {
+        "nama": "RIZKY ADITIA",
+        "jk": "L"
+      },
+      {
+        "nama": "SITTI HAJERAH",
+        "jk": "P"
+      },
+      {
+        "nama": "SITTI JENAR",
+        "jk": "P"
+      }
+    ],
+    "B": [
+      {
+        "nama": "AFIRA AULIA PUTRI SABRIANI",
+        "jk": "P"
+      },
+      {
+        "nama": "ARIF RAHMAN",
+        "jk": "L"
+      },
+      {
+        "nama": "ARIFIN PUTRA BUGISTAN",
+        "jk": "L"
+      },
+      {
+        "nama": "ASSAMAT RHAPI'I",
+        "jk": "L"
+      },
+      {
+        "nama": "CLARA NUR'SYAKILA",
+        "jk": "P"
+      },
+      {
+        "nama": "HIKMAH AZ ZAHRAH",
+        "jk": "P"
+      },
+      {
+        "nama": "IFRIDHA HAYATI SAFIRA",
+        "jk": "P"
+      },
+      {
+        "nama": "IKRIMAH",
+        "jk": "P"
+      },
+      {
+        "nama": "ISNAYANTI",
+        "jk": "P"
+      },
+      {
+        "nama": "KARLINA",
+        "jk": "P"
+      },
+      {
+        "nama": "KHAIRIL FIKRI BAZILA",
+        "jk": "L"
+      },
+      {
+        "nama": "LALU MUHAMMAD ZAKI HIDAYATULLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "M AKBAR KHADAFI",
+        "jk": "L"
+      },
+      {
+        "nama": "M. ARDIANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MAITSA NABILAH",
+        "jk": "P"
+      },
+      {
+        "nama": "MUHAMMAD ABEL ADITYA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD AGUS RAMADAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RAJA SAPUTRA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD REYHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RIFA'I",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ZUMAR",
+        "jk": "L"
+      },
+      {
+        "nama": "NOR KHALIFAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR LAYLATUL QADERIAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NURUL AZIZAH SALSABILA",
+        "jk": "P"
+      },
+      {
+        "nama": "RIDWAN MAULANA",
+        "jk": "L"
+      },
+      {
+        "nama": "RIF'QI ALIF SEPTRIANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "SALSABILLA KARDIANTY AZ ZAHRA",
+        "jk": "P"
+      },
+      {
+        "nama": "SRI WULANDARI",
+        "jk": "P"
+      },
+      {
+        "nama": "UMINA UMAIRAH",
+        "jk": "P"
+      },
+      {
+        "nama": "VERRA AULIA",
+        "jk": "P"
+      }
+    ],
+    "C": [
+      {
+        "nama": "AHMAD ASYRAF",
+        "jk": "L"
+      },
+      {
+        "nama": "BASIR",
+        "jk": "L"
+      },
+      {
+        "nama": "DWI ANDHIKA",
+        "jk": "L"
+      },
+      {
+        "nama": "HASTUTY",
+        "jk": "P"
+      },
+      {
+        "nama": "KHAIRUL ANAM",
+        "jk": "L"
+      },
+      {
+        "nama": "LUKMAN",
+        "jk": "L"
+      },
+      {
+        "nama": "M. DANIL KURNIAWAN",
+        "jk": "L"
+      },
+      {
+        "nama": "M. NIZAR",
+        "jk": "L"
+      },
+      {
+        "nama": "M. RIFKY ADITYA",
+        "jk": "L"
+      },
+      {
+        "nama": "MIKHAYLAH NURJANNAH",
+        "jk": "P"
+      },
+      {
+        "nama": "MUHAMMAD FAQIH",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD HAIKAL APPANDI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RAMADANIL",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RIZKY SAPUTRA PALALLO",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RIZQI MAULANA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RUSLI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD YUSUF AFGAN HIDAYATULLAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MUNIF ABYAN",
+        "jk": "L"
+      },
+      {
+        "nama": "NUR AINI INDRIANI",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AISYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "PARDIANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "PUTRI MULYANA",
+        "jk": "P"
+      },
+      {
+        "nama": "RAHMAH",
+        "jk": "P"
+      },
+      {
+        "nama": "RIHANA FIRDASARI",
+        "jk": "P"
+      },
+      {
+        "nama": "RIRIN JUMAERAH",
+        "jk": "P"
+      },
+      {
+        "nama": "RUSMALIANA",
+        "jk": "P"
+      },
+      {
+        "nama": "SITI RAHMAH",
+        "jk": "P"
+      },
+      {
+        "nama": "SUCHI RAMADHANI",
+        "jk": "P"
+      },
+      {
+        "nama": "SYIFA ANNIDA AWALIYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "RARA",
+        "jk": "P"
+      }
+    ],
+    "D": [
+      {
+        "nama": "AIRI NUR ASSYIFAH",
+        "jk": "P"
+      },
+      {
+        "nama": "ALDI REVANSYAH",
+        "jk": "L"
+      },
+      {
+        "nama": "ATIKAH FARAH DZAKIYAH",
+        "jk": "P"
+      },
+      {
+        "nama": "AYU WULANDARI",
+        "jk": "P"
+      },
+      {
+        "nama": "FERDI",
+        "jk": "L"
+      },
+      {
+        "nama": "KAMILUSISYUHUR",
+        "jk": "L"
+      },
+      {
+        "nama": "KHADIJAH SALSABILA",
+        "jk": "P"
+      },
+      {
+        "nama": "LAILA SUKMA",
+        "jk": "P"
+      },
+      {
+        "nama": "M. ADE SAPUTRA BRATAMA",
+        "jk": "L"
+      },
+      {
+        "nama": "M. FIKRI MAULANA",
+        "jk": "L"
+      },
+      {
+        "nama": "M. PADIL",
+        "jk": "L"
+      },
+      {
+        "nama": "M. REHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "M. REZA PEBRIAN",
+        "jk": "L"
+      },
+      {
+        "nama": "M. SAID ALFADILAH",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD HABIBUL KHAIR",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ILHAM",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ILHAM WIJAYA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RAFI'E KHURIZMI",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD RAIHAN MUNAWIR",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD REHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD REJA",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD SAID",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD YUSUF",
+        "jk": "L"
+      },
+      {
+        "nama": "NAHJA IZZATI",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR FATHUL JANNAH",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR SELDA SYAFARIA",
+        "jk": "P"
+      },
+      {
+        "nama": "RAMIZA AZALIA",
+        "jk": "P"
+      },
+      {
+        "nama": "SYARIFAH SALSABILA ALKAFF",
+        "jk": "P"
+      },
+      {
+        "nama": "SYARIFAH SYIFA ALKAF",
+        "jk": "P"
+      },
+      {
+        "nama": "ULAN LESTARI",
+        "jk": "P"
+      },
+      {
+        "nama": "INDRIANI",
+        "jk": "P"
+      }
+    ],
+    "E": [
+      {
+        "nama": "AHMAD ZULKIFLI",
+        "jk": "L"
+      },
+      {
+        "nama": "ALISYAH RIANA",
+        "jk": "P"
+      },
+      {
+        "nama": "AULIA KHADIJATUL GINA IDRUS",
+        "jk": "P"
+      },
+      {
+        "nama": "AZIZAH MAGVIRAH",
+        "jk": "P"
+      },
+      {
+        "nama": "DEWI NURSIFAH",
+        "jk": "P"
+      },
+      {
+        "nama": "GUNAWAN FEBRIAN",
+        "jk": "L"
+      },
+      {
+        "nama": "HUSNUL MAULIDA",
+        "jk": "P"
+      },
+      {
+        "nama": "IBNATY NUR AINI",
+        "jk": "P"
+      },
+      {
+        "nama": "JUWITA SUBAEDAH",
+        "jk": "P"
+      },
+      {
+        "nama": "LIA ARIESCA PUTRI",
+        "jk": "P"
+      },
+      {
+        "nama": "M. AFDAL MAULANA",
+        "jk": "L"
+      },
+      {
+        "nama": "M. LUTFI PADILAH",
+        "jk": "L"
+      },
+      {
+        "nama": "M. YUSUF",
+        "jk": "L"
+      },
+      {
+        "nama": "MIFTAHUL RIZKI RAMADANI",
+        "jk": "L"
+      },
+      {
+        "nama": "MIRATUL HUSNAH",
+        "jk": "P"
+      },
+      {
+        "nama": "MUHAMMAD ALI HAJRRATUL ASWAD",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD DANIL",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD DAVA RAMADHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD FAHRIANSYAH RAMADHAN",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD HILMAN ARSYAD",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD ILHAM. S",
+        "jk": "L"
+      },
+      {
+        "nama": "MUHAMMAD SAPWAN",
+        "jk": "L"
+      },
+      {
+        "nama": "NOR AFIQA ASNOR",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR AFRIL WINDA SARI",
+        "jk": "P"
+      },
+      {
+        "nama": "NUR SYAFIRA",
+        "jk": "P"
+      },
+      {
+        "nama": "PUTRA",
+        "jk": "L"
+      },
+      {
+        "nama": "RAJA AZHAR",
+        "jk": "L"
+      },
+      {
+        "nama": "RISMA AULIA ANASWA",
+        "jk": "P"
+      },
+      {
+        "nama": "SALSHA BILA RIZKY",
+        "jk": "P"
+      },
+      {
+        "nama": "SITI NUR HIKMAH",
+        "jk": "P"
+      }
+    ]
+  },
+  "9": {}
+};
+
+// Helper: Get list of rombels (A, B, C, D, E) based on active data
+function getRombelList() {
+  return ['A', 'B', 'C', 'D', 'E'];
+}
+
+function getGradeLabel(mode) {
+  if (mode === '7to8') return { from: '7', to: '8', label: 'Kelas 7 \u2192 8' };
+  if (mode === '8to9') return { from: '8', to: '9', label: 'Kelas 8 \u2192 9' };
+  return { from: '7', to: '7', label: 'Siswa Baru' };
+}
+
+function getStudentsForMode(mode) {
+  if (mode === '7to8') return STUDENT_DATA['7'];
+  if (mode === '8to9') return STUDENT_DATA['8'];
+  return {};
+}
+
