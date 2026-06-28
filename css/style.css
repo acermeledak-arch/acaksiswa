@@ -678,6 +678,7 @@ body::before {
 
 .constraint-card.exclusion { border-left: 3px solid var(--accent-red); }
 .constraint-card.grouping { border-left: 3px solid var(--accent-green); }
+.constraint-card.gang { border-left: 3px solid var(--accent-orange); }
 
 .constraint-info {
   display: flex;
@@ -944,6 +945,88 @@ body::before {
   justify-content: center;
   gap: 8px;
   padding: 28px 16px;
+}
+
+/* ============================================
+   GANG SEPARATION
+   ============================================ */
+.gang-separator {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-orange), transparent);
+  margin: 20px 0 16px;
+  opacity: 0.5;
+}
+
+.alert-gang {
+  background: var(--accent-orange-dim);
+  color: var(--accent-orange);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.gang-panel {
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.btn-gang {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  -webkit-tap-highlight-color: transparent;
+  background: var(--accent-orange-dim);
+  color: var(--accent-orange);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  white-space: nowrap;
+}
+.btn-gang:active { transform: scale(0.97); }
+
+.gang-header-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.gang-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--accent-orange-dim);
+  color: var(--accent-orange);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.gang-dist-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: var(--accent-purple-dim);
+  color: var(--accent-purple);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.gang-temp-info {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-orange);
+  padding: 4px 0 6px;
 }
 
 /* ============================================

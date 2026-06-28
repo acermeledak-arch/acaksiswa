@@ -11,14 +11,15 @@ const Shuffler = {
    * @param {Array} exclusions - [{student1: {nama, kelas}, student2: {nama, kelas}}, ...]
    * @param {Array} groupings - [[{nama, kelas}, {nama, kelas}, ...], ...]
    * @param {string} targetGrade - Target grade (e.g., '8', '9')
+   * @param {Array} gangs - [[{nama, kelas}, ...], ...] — gang members to distribute evenly
    * @returns {Object|null} Result { 'A': [...], 'B': [...], ... } or null if failed
    */
-  shuffle(students, rankings, exclusions, groupings, targetGrade) {
+  shuffle(students, rankings, exclusions, groupings, targetGrade, gangs = []) {
     const rombels = getRombelList();
     const maxAttempts = 1000;
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      const result = this._attemptShuffle(students, rankings, exclusions, groupings, rombels, targetGrade);
+      const result = this._attemptShuffle(students, rankings, exclusions, groupings, rombels, targetGrade, gangs);
       if (result) {
         return result;
       }
@@ -26,7 +27,7 @@ const Shuffler = {
     return null; // Failed after max attempts
   },
 
-  _attemptShuffle(students, rankings, exclusions, groupings, rombels, targetGrade) {
+  _attemptShuffle(students, rankings, exclusions, groupings, rombels, targetGrade, gangs) {
     // 1. Separate ranked (fixed) and shuffleable students
     const fixedStudents = {}; // { 'A': [...], 'B': [...] }
     const shufflePool = [];   // all students to be shuffled
@@ -124,6 +125,36 @@ const Shuffler = {
       };
     });
 
+    // 6. Build gang constraints
+    const gangLookup = new Map();
+    const gangTracker = [];
+    const gangMaxPerKelas = [];
+    const gangMinPerKelas = [];
+
+    gangs.forEach((gang, gIdx) => {
+      const tracker = {};
+      rombels.forEach(r => { tracker[r] = 0; });
+      gangTracker.push(tracker);
+      gangMaxPerKelas.push(Math.ceil(gang.length / rombels.length));
+      gangMinPerKelas.push(Math.floor(gang.length / rombels.length));
+
+      gang.forEach(member => {
+        const key = `${member.nama}|${member.kelas}`;
+        gangLookup.set(key, gIdx);
+      });
+    });
+
+    // Pre-count fixed (ranked) students that are gang members
+    rombels.forEach(r => {
+      fixedStudents[r].forEach(s => {
+        const key = `${s.nama}|${s.kelasAsal}`;
+        if (gangLookup.has(key)) {
+          const gIdx = gangLookup.get(key);
+          gangTracker[gIdx][r]++;
+        }
+      });
+    });
+
     // Helper: count gender in a class result
     const countGender = (classResult, gender) => {
       return classResult.filter(s => s.jk === gender).length;
@@ -153,6 +184,23 @@ const Shuffler = {
       return false;
     };
 
+    // Helper: check if placing student in class violates gang distribution
+    const violatesGang = (student, targetRombel) => {
+      const sKey = `${student.nama}|${student.kelasAsal}`;
+      if (!gangLookup.has(sKey)) return false;
+      const gIdx = gangLookup.get(sKey);
+      return gangTracker[gIdx][targetRombel] >= gangMaxPerKelas[gIdx];
+    };
+
+    // Helper: update gang tracker after placing a student
+    const updateGangTracker = (student, targetRombel) => {
+      const sKey = `${student.nama}|${student.kelasAsal}`;
+      if (gangLookup.has(sKey)) {
+        const gIdx = gangLookup.get(sKey);
+        gangTracker[gIdx][targetRombel]++;
+      }
+    };
+
     // Helper: check if class has room for gender
     const hasGenderRoom = (rombel, gender) => {
       const current = countGender(result[rombel], gender === 'L' ? 'L' : 'P');
@@ -165,7 +213,7 @@ const Shuffler = {
       return result[rombel].length >= classTargets[rombel];
     };
 
-    // 6. Place super-units first (shuffled order)
+    // 7. Place super-units first (shuffled order)
     this._fisherYatesShuffle(activeSuperUnits);
 
     for (const unit of activeSuperUnits) {
@@ -188,6 +236,23 @@ const Shuffler = {
         }
         if (!exclusionOk) continue;
 
+        // Check gang constraints for all members
+        let gangOk = true;
+        const tempGangCounts = {};
+        for (const member of unit.members) {
+          const sKey = `${member.nama}|${member.kelasAsal}`;
+          if (gangLookup.has(sKey)) {
+            const gIdx = gangLookup.get(sKey);
+            if (!tempGangCounts[gIdx]) tempGangCounts[gIdx] = 0;
+            tempGangCounts[gIdx]++;
+            if (gangTracker[gIdx][r] + tempGangCounts[gIdx] > gangMaxPerKelas[gIdx]) {
+              gangOk = false;
+              break;
+            }
+          }
+        }
+        if (!gangOk) continue;
+
         // Check gender balance (approximate)
         let genderOk = true;
         const tempMale = countGender(result[r], 'L') + unit.members.filter(m => m.jk === 'L').length;
@@ -198,7 +263,10 @@ const Shuffler = {
         if (!genderOk) continue;
 
         // Place all members
-        unit.members.forEach(m => result[r].push(m));
+        unit.members.forEach(m => {
+          result[r].push(m);
+          updateGangTracker(m, r);
+        });
         placed = true;
         break;
       }
@@ -206,15 +274,18 @@ const Shuffler = {
       if (!placed) return null; // Can't satisfy constraints
     }
 
-    // 7. Place ungrouped students
+    // 8. Place ungrouped students
     this._fisherYatesShuffle(ungroupedPool);
 
-    // Sort by constraint difficulty (students with more exclusions first)
+    // Sort by constraint difficulty (gang members + more exclusions first)
     ungroupedPool.sort((a, b) => {
       const aKey = `${a.nama}|${a.kelasAsal}`;
       const bKey = `${b.nama}|${b.kelasAsal}`;
       const aExclusions = exclusionMap.has(aKey) ? exclusionMap.get(aKey).size : 0;
       const bExclusions = exclusionMap.has(bKey) ? exclusionMap.get(bKey).size : 0;
+      const aGang = gangLookup.has(aKey) ? 1 : 0;
+      const bGang = gangLookup.has(bKey) ? 1 : 0;
+      if (aGang !== bGang) return bGang - aGang;
       return bExclusions - aExclusions;
     });
 
@@ -233,6 +304,7 @@ const Shuffler = {
       for (const r of shuffledRombels) {
         if (isClassFull(r)) continue;
         if (violatesExclusion(student, r)) continue;
+        if (violatesGang(student, r)) continue;
 
         // Gender check: prefer classes with room, but allow ±1
         const currentGender = countGender(result[r], student.jk);
@@ -240,16 +312,19 @@ const Shuffler = {
         if (currentGender > targetGenderCount) continue; // Already over target
 
         result[r].push(student);
+        updateGangTracker(student, r);
         placed = true;
         break;
       }
 
       if (!placed) {
-        // Relaxed placement — ignore gender preference
+        // Relaxed placement — ignore gender preference, but keep gang + exclusion
         for (const r of shuffledRombels) {
           if (isClassFull(r)) continue;
           if (violatesExclusion(student, r)) continue;
+          if (violatesGang(student, r)) continue;
           result[r].push(student);
+          updateGangTracker(student, r);
           placed = true;
           break;
         }
@@ -258,8 +333,8 @@ const Shuffler = {
       if (!placed) return null;
     }
 
-    // 8. Validate
-    if (!this._validate(result, exclusionMap, rombels, genderTargets)) {
+    // 9. Validate
+    if (!this._validate(result, exclusionMap, rombels, genderTargets, gangTracker, gangMaxPerKelas, gangMinPerKelas)) {
       return null;
     }
 
@@ -273,8 +348,8 @@ const Shuffler = {
     return result;
   },
 
-  _validate(result, exclusionMap, rombels, genderTargets) {
-    // Validate exclusions
+  _validate(result, exclusionMap, rombels, genderTargets, gangTracker, gangMaxPerKelas, gangMinPerKelas) {
+    // Validate exclusions + SECRET RULES
     for (const r of rombels) {
       for (const s of result[r]) {
         // --- SECRET RULES VALIDATION ---
@@ -285,7 +360,7 @@ const Shuffler = {
             for (const other of result[r]) {
               if (SECRET_RULES.separatedStudents.includes(other.nama)) secretCount++;
             }
-            if (secretCount > 1) return false; // More than 1 secret student in same class
+            if (secretCount > 1) return false;
           }
         }
         // -------------------------------
@@ -311,6 +386,14 @@ const Shuffler = {
 
     if (maxMale - minMale > 1) return false;
     if (maxFemale - minFemale > 1) return false;
+
+    // Validate gang distribution (both min and max)
+    for (let gIdx = 0; gIdx < gangTracker.length; gIdx++) {
+      for (const r of rombels) {
+        if (gangTracker[gIdx][r] > gangMaxPerKelas[gIdx]) return false;
+        if (gangTracker[gIdx][r] < gangMinPerKelas[gIdx]) return false;
+      }
+    }
 
     return true;
   },

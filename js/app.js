@@ -11,9 +11,11 @@ const App = {
   gradeInfo: null,   // { from, to, label }
   rankings: {},      // { 'A': Set([name,...]), 'B': Set(...), ... }
   exclusions: [],    // [{ student1: {nama,kelas}, student2: {nama,kelas} }, ...]
+  gangs: [],         // [[{nama,kelas}, ...], ...] — gang members to distribute evenly
   groupings: [],     // [[{nama,kelas}, ...], ...]
   results: null,     // shuffle results
   currentTab: 'A',   // current active tab
+  _tempGang: [],     // temp gang builder
 
   // ---- Initialization ----
   init() {
@@ -75,9 +77,11 @@ const App = {
     this.gradeInfo = null;
     this.rankings = {};
     this.exclusions = [];
+    this.gangs = [];
     this.groupings = [];
     this.results = null;
     this.currentTab = 'A';
+    this._tempGang = [];
   },
 
   // ---- Step Indicator ----
@@ -190,9 +194,11 @@ const App = {
     this.students = getStudentsForMode(mode);
     this.rankings = {};
     this.exclusions = [];
+    this.gangs = [];
     this.groupings = [];
     this.results = null;
     this.currentTab = 'A';
+    this._tempGang = [];
 
     getRombelList().forEach(r => {
       this.rankings[r] = new Set();
@@ -433,9 +439,81 @@ const App = {
       ` : `
         <div class="empty-state">
           <span class="empty-state-icon">🤝</span>
-          <div class="empty-state-text">Belum ada pemisahan untuk kelas ini.</div>
+          <div class="empty-state-text">Belum ada pemisahan individual untuk kelas ini.</div>
         </div>
       `}
+
+      <!-- ====== GANG SEPARATION SECTION ====== -->
+      <div class="gang-separator"></div>
+
+      <div class="alert alert-gang">
+        🔥 <strong>Pemisahan Geng</strong> — Tandai sekelompok siswa yang harus <strong>didistribusikan merata</strong> ke semua rombel.
+      </div>
+
+      <div class="glass-panel gang-panel">
+        <div class="form-group">
+          <label class="form-label">Tambah Anggota Geng</label>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <select class="form-select" id="gang-student" style="flex:1; min-width:200px;">
+              <option value="">-- Pilih Siswa --</option>
+              ${optgroupHTML}
+            </select>
+            <button class="btn btn-gang" onclick="App.addToTempGang()">+ Tambah</button>
+          </div>
+        </div>
+
+        <div id="temp-gang" class="constraint-list" style="margin-top:8px;"></div>
+
+        <div style="margin-top:12px; text-align:right;">
+          <button class="btn btn-primary" onclick="App.saveGang()" id="save-gang-btn" style="display:none;">
+            🔥 Simpan Geng
+          </button>
+        </div>
+      </div>
+
+      ${(() => {
+        // Gangs involving at least 1 member from current rombel
+        const relevantGangs = this.gangs.map((gang, idx) => ({ gang, idx }))
+          .filter(({ gang }) => gang.some(m => m.kelas === rombel));
+        const numRombels = rombels.length;
+
+        if (relevantGangs.length > 0) {
+          return `
+            <div class="section-title">
+              <h2>🔥 Geng — Kelas ${this.gradeInfo.from}${rombel}</h2>
+              <p>${relevantGangs.length} geng terkait</p>
+            </div>
+            <div class="constraint-list" id="gang-list">
+              ${relevantGangs.map(({ gang, idx }) => {
+                const maxPerKelas = Math.ceil(gang.length / numRombels);
+                return `
+                  <div class="constraint-card gang">
+                    <div class="constraint-info" style="flex-direction:column; align-items:flex-start; gap:4px;">
+                      <div class="gang-header-info">
+                        <span class="gang-badge">${gang.length} anggota</span>
+                        <span class="gang-dist-badge">max ${maxPerKelas}/kelas</span>
+                      </div>
+                      <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                        ${gang.map(m => `
+                          <span class="constraint-student">${m.nama} (${this.gradeInfo.from}${m.kelas})</span>
+                        `).join('')}
+                      </div>
+                    </div>
+                    <button class="btn-icon" onclick="App.removeGang(${idx})" title="Hapus">✕</button>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        } else {
+          return `
+            <div class="empty-state">
+              <span class="empty-state-icon">🔥</span>
+              <div class="empty-state-text">Belum ada geng yang dibuat. Tambahkan jika ada kelompok siswa yang harus disebar.</div>
+            </div>
+          `;
+        }
+      })()}
 
       <p class="skip-note">💡 Tidak ada yang perlu dipisahkan? Langsung klik "Lanjut"</p>
 
@@ -444,6 +522,9 @@ const App = {
         <button class="btn btn-primary" onclick="App.goToNextExclusion()">${isLast ? 'Lanjut: Penggabungan →' : `Lanjut: Kelas ${this.gradeInfo.from}${rombels[rombelIdx + 1]} →`}</button>
       </div>
     `;
+
+    // Reset temp gang
+    this._tempGang = [];
   },
 
   goToNextExclusion() {
@@ -509,6 +590,91 @@ const App = {
     this.renderGrouping();
     this.showPage('grouping');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
+  // ---- Gang Functions ----
+  addToTempGang() {
+    const sel = document.getElementById('gang-student');
+    if (!sel.value) { alert('Pilih siswa terlebih dahulu!'); return; }
+
+    const [nama, kelas] = sel.value.split('|');
+
+    if (this._tempGang.some(m => m.nama === nama && m.kelas === kelas)) {
+      alert('Siswa sudah ada di dalam geng ini!');
+      return;
+    }
+
+    const inOtherGang = this.gangs.some(gang =>
+      gang.some(m => m.nama === nama && m.kelas === kelas)
+    );
+    if (inOtherGang) {
+      alert('Siswa sudah berada di geng lain!');
+      return;
+    }
+
+    const student = { nama, kelas };
+    const studentData = (this.students[kelas] || []).find(s => s.nama === nama);
+    if (studentData) student.jk = studentData.jk;
+
+    this._tempGang.push(student);
+    this._renderTempGang();
+  },
+
+  _renderTempGang() {
+    const container = document.getElementById('temp-gang');
+    const saveBtn = document.getElementById('save-gang-btn');
+
+    if (this._tempGang.length === 0) {
+      container.innerHTML = '';
+      saveBtn.style.display = 'none';
+      return;
+    }
+
+    saveBtn.style.display = this._tempGang.length >= 2 ? 'inline-flex' : 'none';
+
+    const maxPerKelas = Math.ceil(this._tempGang.length / getRombelList().length);
+    container.innerHTML = `
+      <div class="gang-temp-info">Anggota: ${this._tempGang.length} \u00b7 Max ${maxPerKelas} per kelas</div>
+      ${this._tempGang.map((m, i) => `
+        <div class="constraint-card gang" style="padding:8px 12px;">
+          <div class="constraint-info">
+            <span class="constraint-student">${m.nama} (${this.gradeInfo.from}${m.kelas})</span>
+            <span class="gender-badge ${m.jk === 'L' ? 'male' : 'female'}">${m.jk === 'L' ? 'L' : 'P'}</span>
+          </div>
+          <button class="btn-icon" onclick="App.removeTempGang(${i})" title="Hapus">\u2715</button>
+        </div>
+      `).join('')}
+    `;
+  },
+
+  removeTempGang(index) {
+    this._tempGang.splice(index, 1);
+    this._renderTempGang();
+  },
+
+  saveGang() {
+    if (this._tempGang.length < 2) {
+      alert('Geng harus berisi minimal 2 siswa!');
+      return;
+    }
+
+    const allRanked = this._tempGang.every(m =>
+      this.rankings[m.kelas] && this.rankings[m.kelas].has(m.nama)
+    );
+    const allSameClass = this._tempGang.every(m => m.kelas === this._tempGang[0].kelas);
+    if (allRanked && allSameClass) {
+      alert('Semua anggota geng adalah siswa peringkat dari rombel yang sama \u2014 pemisahan tidak bermakna karena mereka semua tetap di rombelnya.');
+      return;
+    }
+
+    this.gangs.push([...this._tempGang]);
+    this._tempGang = [];
+    this.renderExclusion();
+  },
+
+  removeGang(index) {
+    this.gangs.splice(index, 1);
+    this.renderExclusion();
   },
 
   // ============================================
@@ -739,6 +905,10 @@ const App = {
           <div class="summary-value" style="color: var(--accent-green);">🤝 ${this.groupings.length}</div>
           <div class="summary-label">Penggabungan</div>
         </div>
+        <div class="summary-item">
+          <div class="summary-value" style="color: var(--accent-orange);">🔥 ${this.gangs.length}</div>
+          <div class="summary-label">Geng</div>
+        </div>
       </div>
 
       <div class="center-action" id="shuffle-action">
@@ -776,7 +946,8 @@ const App = {
         this.rankings,
         this.exclusions,
         this.groupings,
-        this.gradeInfo.to
+        this.gradeInfo.to,
+        this.gangs
       );
 
       document.getElementById('shuffle-loading').classList.remove('active');
